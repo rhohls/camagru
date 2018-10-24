@@ -1,5 +1,7 @@
 <?php
 require_once 'connect.php';
+require_once 'gallery.php';
+
 session_start();
 ?>
 
@@ -23,6 +25,8 @@ session_start();
 		<!-- Custom styles for this template -->
 		<link href="css/thumbnail-gallery.css" rel="stylesheet">
 
+		<!-- Javascript -->
+		<script type='text/javascript' src='scripts.js'></script>
 	</head>
 
 	<body>
@@ -31,7 +35,7 @@ session_start();
 		<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 			<div class="container">
 
-			<a class="navbar-brand" href="reg.html">Start Bootstrap working</a>
+			<a class="navbar-brand" href="make_picture.php">Make your own picture</a>
 
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -58,11 +62,11 @@ session_start();
 								echo "<a class='nav-link' href='#'>My Account</a>";
 							}
 							else
-								echo "<a class='nav-link' href='loginpage.html'>Login</a>";
+								echo "<a class='nav-link' href='loginpage.html' >Login</a>";
 							?>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="logout.php">Logout</a>
+							<a class="nav-link" onclick='logOut();'>Logout</a>
 						</li>
 					</ul>
 				</div>
@@ -72,35 +76,8 @@ session_start();
 		<!-- Page Content -->
 		<div class="container">
 
-			<h1 class="my-4 text-center text-lg-left">Video is here</h1>
-
-			<video autoplay=true id='video_player'></video>
-			<script type='text/javascript'>
-				var video = document.getElementById("video_player");
-				var vendorURL = window.URL || window.webkitURL;
-
-				navigator.getMedia =	navigator.getUserMedia ||
-										navigator.webkitGetUserMedia ||
-										navigator.mozGetUserMedia ||
-										navigator.msGetUserMedia;
-
-				navigator.getMedia(
-				{
-					video: true,
-					audio: false
-				}, function (stream){
-					video.src = vendorURL.createObjectURL(stream);
-					video.play();
-				},function (error){
-					
-				}
-				);
-			</script>
-
-			<h2> No more vids</h2>
+			<?php getPage(); ?>
 		</div>
-		<!-- /.container -->
-
 		<!-- Footer -->
 		<footer class="py-5 bg-dark">
 			<div class="container">

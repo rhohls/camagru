@@ -14,10 +14,6 @@ $dbname = "camagru";
 try {
     $pdo = new PDO("mysql:host=$servername", $username, $password);
 	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-	
-	// $_SESSION['pdo'] = $pdo;
-	// echo "Connected successfully" . PHP_EOL;
-    // var_dump($_SESSION['pdo']);
     $pdo->query("use $dbname");
     }
 catch(PDOException $e)

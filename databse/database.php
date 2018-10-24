@@ -57,11 +57,16 @@ try{
     (
         img_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT NOT NULL,
-        date_created DATE NOT NULL,
+        date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         original_img_id INT,
-        notify_creator INT DEFAULT 1
+        notify_creator INT DEFAULT 1,
+        image LONGBLOB
     )";
     $pdo->query($init_table);
+    // $img = get_file_contents('./test.png');
+    // $testimg = "INSERT INTO `images` (user_id, image)
+    // VALUES (2, '$img')";
+    // $pdo->query($testimg);
 
 
     $init_table = "CREATE TABLE IF NOT EXISTS `stickers`

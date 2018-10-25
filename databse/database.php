@@ -30,19 +30,19 @@ try{
     $pdo->query("use `$dbname`");
 
 
-    $init_table = "CREATE TABLE IF NOT EXISTS `users`
+    $user_table = "CREATE TABLE IF NOT EXISTS `users`
     (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_name VARCHAR(20) NOT NULL,
-        password VARCHAR(100) NOT NULL,
+        password VARCHAR(255) NOT NULL,
         email VARCHAR(100) NOT NULL,
         first_name VARCHAR(32) NOT NULL,
         last_name VARCHAR(32) NOT NULL,
         confirmed INT DEFAULT 0,
         admin INT DEFAULT 0,
         active INT DEFAULT 0
-    )";
-    $pdo->query($init_table);
+    );";
+    $pdo->query($user_table);
     
 
     if (!userExist($pdo, 'admin')){
@@ -53,31 +53,40 @@ try{
     // comments
     // likes
     // dislike    
-    $init_table = "CREATE TABLE IF NOT EXISTS `images`
+    $img_table = "CREATE TABLE IF NOT EXISTS `images`
     (
         img_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT NOT NULL,
         date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         original_img_id INT,
         notify_creator INT DEFAULT 1,
-        image LONGBLOB
-    )";
-    $pdo->query($init_table);
+        image LONGBLOB,
+        image_location VARCHAR(255)
+
+    );";
+    $pdo->query($img_table);
     // $img = get_file_contents('./test.png');
     // $testimg = "INSERT INTO `images` (user_id, image)
     // VALUES (2, '$img')";
     // $pdo->query($testimg);
 
 
-    $init_table = "CREATE TABLE IF NOT EXISTS `stickers`
+    $stick_table = "CREATE TABLE IF NOT EXISTS `stickers`
     (
         img_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT NOT NULL,
-        date_created DATE
-    )";
-    $pdo->query($init_table);
+        date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    );";
+    $pdo->query($stick_table);
 
-
+    $comment_table = "CREATE TABLE IF NOT EXISTS `comments`
+    (
+        comment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        comment TEXT NOT NULL,
+        date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        img_id INT NOT NULL
+    );";
+    $pdo->query($comment_table);
 
     echo "Databse created successfully!" . PHP_EOL;
     }

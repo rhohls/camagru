@@ -59,7 +59,7 @@ session_start();
 						<li class="nav-item">
 							<?php
 							if (isset($_SESSION['uid'])){
-								echo "<a class='nav-link' href='#'>My Account</a>";
+								echo "<a class='nav-link' href='adjust.html'>My Account</a>";
 							}
 							else
 								echo "<a class='nav-link' href='loginpage.html' >Login</a>";

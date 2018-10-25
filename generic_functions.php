@@ -19,13 +19,16 @@ function userExist($pdo, $user_name){
 
 function alert($str, $redirect)
 {
+	echo "redirecting to " . $redirect;
 	echo "<script type='text/javascript'>
 	alert('$str');
-	window.location.href = $redirect; 
+	window.location.href = '$redirect'; 
 	</script>";
 	die();
 }
 
-
+function addQuotes($str){
+	return ('\''.$str.'\'');
+}
 
 ?>

@@ -41,14 +41,17 @@ require_once 'connect.php';
                      </tr>  
                 <?php  
                 $query = "SELECT * FROM `images` ORDER BY date_created DESC";  
-				$result = ($pdo->query($query))->fetch();
-				var_dump($result);
-                foreach($result as $row)  
-                {  
+				$result = ($pdo->query($query))->fetchAll();
+                // print_r($result);
+                // echo 
+                foreach($result as $row)
+                {
+                    // echo $row['img_id'];
+                    $img = base64_encode($row['image']);
                      echo '  
                           <tr>  
                                <td>  
-                                    <img src="data:image/jpeg;base64,'.base64_encode($row["image"] ).'" height="200" width="200" class="img-thumnail" />  
+                                    <img src="data:image/jpg;base64,'. $img .'" height="200" width="200" class="img-thumnail" />  
                                </td>  
                           </tr>  
                      ';  

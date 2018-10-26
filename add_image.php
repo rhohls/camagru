@@ -4,17 +4,29 @@
 
 require_once 'connect.php';
 $uploads_dir = "./imgs";
+
+
+if (!isset($_SESSION['uid'])){
+	header('Location: loginpage.html');
+}
+
 if(isset($_POST["insert"]))  
 { 
 	$file = $_FILES["image"]["tmp_name"];
-	var_dump($_FILES);
-	// $query = "INSERT INTO `images` (user_id, image) VALUES (2, '$file')";
-	// $pdo->query($query);
 
-	$tmp_name = $_FILES["pictures"]["tmp_name"];
-	$name = basename($_FILES["pictures"]["name"]) . time();
+	// date("r",hexdec(substr(uniqid(),0,8))); //reverse uniqid into a time
+	$type = explode('/', $_FILES["image"]["type"]);
+	$name = uniqid() . "." . $type[1];
+	$store_location = "$uploads_dir/$name";
+	// use finfo_open to verify type
 
-	move_uploaded_file($tmp_name, "$uploads_dir/$name");
+	move_uploaded_file($file, $store_location);
+
+	$uid = $_SESSION['uid'];
+	$query = "INSERT INTO `images` (user_id, image_location) VALUES ('$uid', '$store_location')";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(); //use this for security
+
 }
 
 ?>  
@@ -27,7 +39,7 @@ if(isset($_POST["insert"]))
 		<div class="container" style="width:500px;">  
 			<h3 align="center">Insert and Display Images From Mysql Database in PHP</h3>  
 			<br />  
-			<form method="post" >  
+			<form method="post"  enctype="multipart/form-data">  
 					<input type="file" name="image" />  
 					<br />  
 					<input type="submit" name="insert" value="Insert"/>  
@@ -45,11 +57,13 @@ if(isset($_POST["insert"]))
 			foreach($result as $row)
 			{
 				// echo $row['img_id'];
-				$img = file_get_contents($row['image_location']);
+				// $img = file_get_contents($row['image_location']);
+				// $img = readfile($row['image_location']);
+				$img_loc = $row['image_location'];
 					echo '  
 						<tr>  
 							<td>  
-								<img src="data:image/jpg;base64,'. $img .'" height="200" width="200" class="img-thumnail" />  
+								<img src="'.$img_loc.'" height="200" width="200" class="img-thumnail" />  
 							</td>  
 						</tr>  
 					';  

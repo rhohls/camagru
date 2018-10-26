@@ -1,6 +1,6 @@
 <?php
 require_once 'connect.php';
-
+// require_once 'scripts.js';
 session_start();
 ?>
 
@@ -8,7 +8,32 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="en">
+<script type='text/javascript'>
+	var video = document.getElementById("video_player");
+	var	vendorURL = window.URL || window.webkitURL;
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
 
+
+	navigator.getMedia =	navigator.getUserMedia ||
+							navigator.webkitGetUserMedia ||
+							navigator.mozGetUserMedia ||
+							navigator.msGetUserMedia;
+
+	navigator.getMedia({
+		video: true,
+		audio: false
+	}, function (stream){
+		video.src = vendorURL.createObjectURL(stream);
+		video.play();
+	},function (error){
+		
+	});
+
+	// document.getElementById('canvas').addEventListener('click', function() {
+	// 	context.drawImage(video, 0, 0, 400, 300);
+	// });
+</script>
 	<head>
 
 		<meta charset="utf-8">
@@ -76,14 +101,12 @@ session_start();
 			<h1 class="my-4 text-center text-lg-left">Video is here</h1>
 
 			<video autoplay=true id='video_player' height='300' width='400'></video>
-			
-
-			<h2> No more vids</h2>
 			<a href='#' id="capture" class="pic_btn">Take picture </a>
 			<canvas id='canvas' height="300" width="400"></canvas>
-		</div>
-		<script src='./photo.js'></script>
 
+			<h2> No more vids, now is picture</h2>
+
+		</div>
 		<!-- /.container -->
 
 		<!-- Footer -->

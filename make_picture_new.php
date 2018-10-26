@@ -1,6 +1,5 @@
 <?php
 require_once 'connect.php';
-
 session_start();
 ?>
 
@@ -75,15 +74,11 @@ session_start();
 
 			<h1 class="my-4 text-center text-lg-left">Video is here</h1>
 
-			<video autoplay=true id='video_player' height='300' width='400'></video>
-			
+			<video autoplay=true id='video_player'></video>
+			<script type='text/javascript' src='photo.js'></script>
 
 			<h2> No more vids</h2>
-			<a href='#' id="capture" class="pic_btn">Take picture </a>
-			<canvas id='canvas' height="300" width="400"></canvas>
 		</div>
-		<script src='./photo.js'></script>
-
 		<!-- /.container -->
 
 		<!-- Footer -->

@@ -60,8 +60,7 @@ try{
         date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         original_img_id INT,
         notify_creator INT DEFAULT 1,
-        image LONGBLOB,
-        image_location VARCHAR(255)
+        image_location VARCHAR(255) NOT NULL
 
     );";
     $pdo->query($img_table);

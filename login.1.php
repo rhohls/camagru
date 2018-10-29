@@ -27,28 +27,24 @@ if ($_POST["submit"] == "OK")
 {
 	if ($_POST["login"] !== "" && $_POST["passwd"] !== "")
 	{
-		$login = $_POST["login"];
+		$login = $_POST["login"];	      
 		$uid = -1;
-		// $query = 'SELECT id, user_name FROM `users`';
-		// foreach ($pdo->query($query) as $user) {
-		// 	if ($user["user_name"] == $login){
-		// 		$uid = $user["id"];
-		// 		break;
-		// 	}
-		// }
+		$query = 'SELECT id, user_name FROM `users`';
+		foreach ($pdo->query($query) as $user) {
+			if ($user["user_name"] == $login){
+				$uid = $user["id"];
+				break;
+			}
+		}
 
-		// if ($uid == -1){
-		// 	alert("Details incorrect", $ref);
-		// }
-
-		$query = "SELECT * FROM `users` WHERE user_name=:login";
-		$stmt = $pdo->prepare($query);
-		$stmt->execute(['login' => $login]);
-		$user = $stmt->fetch();
-		// user_name, password, email, first_name, last_name, confirmed, admin, active
-		if (!$user){
+		if ($uid == -1){
 			alert("Details incorrect", $ref);
 		}
+
+		$query = "SELECT * FROM `users` WHERE id=$uid";
+		$user = ($pdo->query($query))->fetch();
+		// user_name, password, email, first_name, last_name, confirmed, admin, active
+
 		$hashedpwd = hashPW($_POST["passwd"]);
 
 		if ($hashedpwd != $user['password']){

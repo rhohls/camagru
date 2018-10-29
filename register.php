@@ -41,6 +41,7 @@ if ($_POST["submit"] == "OK")
 		$first_name = $_POST["first_name"];
 		$last_name = $_POST["last_name"];
 		$email = $_POST["email"];
+
 		$code = hash('md5', $login.uniqid());
 
 		$query = "INSERT INTO `users` (user_name, password, email, first_name, last_name, verification) 
@@ -68,7 +69,7 @@ if ($_POST["submit"] == "OK")
 
 		mail($to,$subject,$txt,$headers);
 
-		echo "sent mail";
+		// echo "sent mail";
 		alert("You have been registered!\n Please check your email", 'index.php');
 
 	}

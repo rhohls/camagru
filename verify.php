@@ -30,7 +30,8 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 		$stmt = $pdo->prepare($query);
 		$stmt->execute(['uid' => $uid]);
 
-		alert("Your account is now verified, you can now login", $redirect);
+		alert("Your account is now verified, you can now login
+		", $redirect);
 	}
 	elseif ($_GET['reset_pw'] == 'true'){
 		$random_pw = uniqid();

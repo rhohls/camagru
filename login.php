@@ -1,19 +1,19 @@
 <?php
 
 require_once 'connect.php';
-// require_once 'generic_functions.php';
+require_once 'generic_functions.php';
 
 
 $ref = 'loginpage.html';
 // change ref below
-function alert($str, $sfnenwfo)
-{
-	echo "<script type='text/javascript'>
-	alert('$str');
-	window.location.href = 'loginpage.html'; 
-	</script>";
-	die();
-}
+// function alert($str, $sfnenwfo)
+// {
+// 	echo "<script type='text/javascript'>
+// 	alert('$str');
+// 	window.location.href = 'loginpage.html'; 
+// 	</script>";
+// 	die();
+// }
 
 function exit_()
 {
@@ -42,20 +42,31 @@ if ($_POST["submit"] == "OK")
 		}
 
 		$query = "SELECT * FROM `users` WHERE id=$uid";
-		$hashedpwd = ($_POST["passwd"]);
 		$user = ($pdo->query($query))->fetch();
+		// user_name, password, email, first_name, last_name, confirmed, admin, active
+
+		$hashedpwd = hashPW($_POST["passwd"]);
 
 		if ($hashedpwd != $user['password']){
 			alert("Details incorrect", $ref);
 		}
-		$_SESSION['uid'] = $uid;
-		$_SESSION['user_name'] = $login;
+		elseif ($user['confirmed'] == 0){
+			alert("Please confirm your account", $ref);
+		}
+		elseif ($user['active'] == 0){
+			alert("Your account has been deactivated\nPlease contact an admin", $ref);
+		}
+		else{
+			$_SESSION['uid'] = $uid;
+			$_SESSION['user_name'] = $login;
+			$_SESSION['admin'] = $user['admin'];
+			alert("You have been logged in", 'index.php');
+
+		}
 		header('Location: index.php');
 	}
 	else{
-		echo "123";
 		alert("Please don't leave any field blank", $ref);
-		echo "456";
 	}
 }
 else

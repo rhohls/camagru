@@ -13,19 +13,7 @@ function exit_()
 	die();
 }
 
-function passwordCheck($pwd) {
 
-    if (strlen($pwd) < 8) {
-        return "Password too short!";
-    }
-    if (!preg_match("#[0-9]+#", $pwd)) {
-        return "Password must include at least one number!";
-    }
-    if (!preg_match("#[a-zA-Z]+#", $pwd)) {
-        return "Password must include at least one letter!";
-    }     
-    return "";
-}
 
 
 if ($_POST["submit"] == "OK")
@@ -46,39 +34,42 @@ if ($_POST["submit"] == "OK")
 		// password security level
 		$pwd_error = checkPassword($_POST["passwd"]);
 		if ($pwd_error){
-			alert($pwd_error);
+			alert("Passwords not secure enough", $redirect);
 		}
 
-		// $hashedpwd = hash('Whirlpool', $_POST["passwd"]);
-		$hashedpwd = $_POST["passwd"];
+		$hashedpwd = hashPW($_POST["passwd"]);
 		$first_name = $_POST["first_name"];
 		$last_name = $_POST["last_name"];
 		$email = $_POST["email"];
+		$code = hash('md5', $login.uniqid());
 
-		$query = 'INSERT INTO `users` (user_name, password, email, first_name, last_name) 
-					VALUES (\''. $login .'\', \''. $hashedpwd .'\', \''. $email .'\', \''. $first_name .'\', \''. $last_name .'\' )';
-
+		$query = "INSERT INTO `users` (user_name, password, email, first_name, last_name, verification) 
+					VALUES (:usr_name, :password, :email, :first, :last, :code)";
 
 		$stmt = $pdo->prepare($query);
 		// echo $stmt;
-		$stmt->execute(); //use this for security
+		$stmt->execute(['usr_name' => $login, 'password' => $hashedpwd, 'email' => $email, 'first' => $first_name, 'last' => $last_name, 'code' => $code]); //use this for security
 
 
 
 		// echo "sending mail";
 
-		// // verify emaily
-		// $to = "rhohls@student.wethinkcode.co.za";
-		// $subject = "My subject";
-		// $headers = "From: rhohls@student.wethinkcode.co.za";
-		// $txt = "Hello world!";
-		// // $headers = "From: webmaster@example.com" . "\r\n" .
-		// // "CC: somebodyelse@example.com";
+		// verify emaily
+		$to = $email;
+		$subject = "My subject";
+		$headers = "From: noresponse@camagru.co.za";
+		$txt = "Dear $login
+		
+		Thank you for registering to Camagru please go to the following link to activate your account:
+		http://localhost:8080/cama/verify.php?usr_name=$login&code=$code&verify=true
+		
+		Kind Regards
+		Camagru";
 
-		// mail($to,$subject,$txt,$headers);
+		mail($to,$subject,$txt,$headers);
 
-		// echo "sent mail";
-		alert("You have been registered!", 'index.php');
+		echo "sent mail";
+		alert("You have been registered!\n Please check your email", 'index.php');
 
 	}
 	else

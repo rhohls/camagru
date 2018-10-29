@@ -38,16 +38,18 @@ try{
         email VARCHAR(100) NOT NULL,
         first_name VARCHAR(32) NOT NULL,
         last_name VARCHAR(32) NOT NULL,
+        verification VARCHAR(32),
         confirmed INT DEFAULT 0,
         admin INT DEFAULT 0,
-        active INT DEFAULT 0
+        active INT DEFAULT 1
     );";
     $pdo->query($user_table);
     
 
     if (!userExist($pdo, 'admin')){
+        $pw = hashPW('root');
         $query = 'INSERT INTO `users` (user_name, password, email, first_name, last_name, confirmed, admin, active)
-        VALUES ("admin", "root", "none", "none", "none", 1, 1, 1)';
+        VALUES ("admin", "'.$pw.'", "none", "none", "none", 1, 1, 1)';
         $pdo->query($query);
     }
     // comments

@@ -60,13 +60,15 @@ if(isset($_POST["insert"]))
 				// $img = file_get_contents($row['image_location']);
 				// $img = readfile($row['image_location']);
 				$img_loc = $row['image_location'];
+				if (file_exists($img_loc)){
 					echo '  
 						<tr>  
 							<td>  
 								<img src="'.$img_loc.'" height="200" width="200" class="img-thumnail" />  
 							</td>  
 						</tr>  
-					';  
+					';
+				}
 			}  
 			?>  
 			</table>  

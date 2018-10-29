@@ -37,14 +37,13 @@ else if ($_POST["submit"] == "OK")
 			alert("Passwords do not match", $redirect);
 
 		
-		// 	// password security level
-		// 	$pwd_error = checkPassword($_POST["passwd"]);
-		// 	if ($pwd_error){
-		// 		alert($pwd_error);
-		// 	}
+		// password security level
+		$pwd_error = checkPassword($_POST["passwd"]);
+		if ($pwd_error){
+			alert($pwd_error);
+		}
 
-		// 	// $hashedpwd = hash('Whirlpool', $_POST["passwd"]);
-		$hashedpwd = $_POST["passwd"];
+		$hashedpwd = hasPW($_POST["passwd"]);
 		$adjust_info["password"] = addQuotes($hashedpwd);
 	}
 	
@@ -73,10 +72,11 @@ else if ($_POST["submit"] == "OK")
 
 	// echo $query;
 	$stmt = $pdo->prepare($query);
-	var_dump($stmt);
+	// var_dump($stmt);
 	$stmt->execute(); //use this for security
 
-
+	$changed = array_keys($adjust_info);
+	alert('Your account info has been changed:\n'. implode(", ", $changed) , $redirect);
 
 
 	// !! alort the follow were adjusted:

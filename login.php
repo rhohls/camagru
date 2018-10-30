@@ -15,11 +15,6 @@ $ref = 'loginpage.html';
 // 	die();
 // }
 
-function exit_()
-{
-	echo "ERROR\n";
-	die();
-}
 session_start();
 
 

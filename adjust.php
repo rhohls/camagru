@@ -7,11 +7,6 @@ session_start();
 
 $redirect = 'adjust.html';
 //function alert($str, $redirect)
-function exit_()
-{
-	echo "ERROR\n";
-	die();
-}
 
 $adjust_info = array();
 $uid = $_SESSION['uid'];
@@ -43,7 +38,7 @@ else if ($_POST["submit"] == "OK")
 			alert($pwd_error);
 		}
 
-		$hashedpwd = hasPW($_POST["passwd"]);
+		$hashedpwd = hashPW($_POST["passwd"]);
 		$adjust_info["password"] = addQuotes($hashedpwd);
 	}
 	
@@ -63,24 +58,21 @@ else if ($_POST["submit"] == "OK")
 		$adjust_info["notify"] = addQuotes($_POST["notify"]);
 	}
 
-
 	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));
 
-	// echo $adjust_str . '</br>';
 
-	$query = "UPDATE `users` SET $adjust_str WHERE id=$uid;";
+ 	if ($adjust_str != ""){
+		$query = "UPDATE `users` SET $adjust_str WHERE id=:uid;";
 
-	// echo $query;
-	$stmt = $pdo->prepare($query);
-	// var_dump($stmt);
-	$stmt->execute(); //use this for security
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(['uid' => $uid]); //use this for security
 
-	$changed = array_keys($adjust_info);
-	alert('Your account info has been changed:\n'. implode(", ", $changed) , $redirect);
-
-
-	// !! alort the follow were adjusted:
-
+		$changed = array_keys($adjust_info);
+		alert('The following account info has been changed:\n'. implode(", ", $changed) , $redirect);
+	 }
+	 else{
+		alert('Please make sure you enter information to change', $redirect);
+	 }
 
 }
 else

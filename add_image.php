@@ -3,18 +3,17 @@
 // $testimg = "INSERT INTO `images` (user_id, image) VALUES (2, '$img')";
 
 require_once 'connect.php';
-$uploads_dir = "./imgs";
-
 
 if (!isset($_SESSION['uid'])){
 	header('Location: loginpage.html');
 }
 
+$uploads_dir = "./imgs";
 if(isset($_POST["insert"]))  
 { 
 	$file = $_FILES["image"]["tmp_name"];
 
-	// date("r",hexdec(substr(uniqid(),0,8))); //reverse uniqid into a time
+	// date("r",hexdec(substr(uniqid(),0,8))); //this converts uniqid into time
 	$type = explode('/', $_FILES["image"]["type"]);
 	$name = uniqid() . "." . $type[1];
 	$store_location = "$uploads_dir/$name";
@@ -23,10 +22,9 @@ if(isset($_POST["insert"]))
 	move_uploaded_file($file, $store_location);
 
 	$uid = $_SESSION['uid'];
-	$query = "INSERT INTO `images` (user_id, image_location) VALUES ('$uid', '$store_location')";
+	$query = "INSERT INTO `images` (user_id, image_location) VALUES (:uid, :loc)";
 	$stmt = $pdo->prepare($query);
-	$stmt->execute(); //use this for security
-
+	$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
 }
 
 ?>  

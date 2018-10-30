@@ -1,5 +1,12 @@
 <?php
 
+
+
+
+// reset code after reset password (security)
+
+
+
 require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
@@ -17,11 +24,17 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 	$user = $stmt->fetch();
 	$uid = $user['id'];
 
+	// var_dump($user);
+	// echo "</br";
+
+	// var_dump($_GET);
+	// echo "</br" . 'here';
+
 	if (!$user ){
-		alert("Error with verification, Please contact an admin\nCode:4721", $redirect);
+		alert("Error with verification, Please contact an admin Code:4721", $redirect);
 	}
 	elseif ($code != $user['verification']){
-		alert("Error with verification, Please contact an admin\nCode:9342", $redirect);
+		alert("Error with verification, Please contact an admin Code:9342", $redirect);
 	}
 	// verification
 	elseif ($_GET['verify'] == 'true'){
@@ -30,11 +43,14 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 		$stmt = $pdo->prepare($query);
 		$stmt->execute(['uid' => $uid]);
 
-		alert("Your account is now verified, you can now login
-		", $redirect);
+		alert("Your account is now verified, you can now login", $redirect);
 	}
 	elseif ($_GET['reset_pw'] == 'true'){
-		$random_pw = uniqid();
+		// echo "</br" . 'here';
+		$rand = hash('md5', uniqid());
+		$random_pw = substr($rand, 0, 10);
+		// echo "</br" . $rand;
+		// echo "</br" . $random_pw;
 		$hased_pw = hashPW($random_pw);
 
 		$to = $user['email'];
@@ -43,15 +59,12 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 		$txt = "Your new password is: ". $random_pw;
 
 		mail($to,$subject,$txt,$headers);
-
-		// sql update
-		$query = "UPDATE `users` set confirmed=1 WHERE id=:uid";
-
-		$stmt = $pdo->prepare($query);
-		$stmt->execute(['uid' => $uid]);
-
-		alert("An email with a new password has been sent", $redirect);
+		alert("Please check your email for a new password", $redirect);
+	}
+	else{
+		alert("Error with verification, Please contact an admin Code:7732", $redirect);
 	}
 
-
+} else {
+	exit_();
 }

@@ -8,10 +8,10 @@ function logOut(){
 }
 
 
-function adjustAccountInfo(){
-	var response = confirm("You are about to adjust the following the entered information");
-	if (response == true) {
-		window.location.href = "adjust.php";
-	}
-	return (response);
-}
+// function adjustAccountInfo(){
+// 	var response = confirm("You are about to adjust the following the entered information");
+// 	if (response == true) {
+// 		window.location.href = "adjust.php";
+// 	}
+// 	return (response);
+// }

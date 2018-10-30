@@ -26,6 +26,12 @@ function alert($str, $redirect)
 	</script>";
 	die();
 }
+function alert_info($str)
+{
+	echo "<script type='text/javascript'>
+	alert('$str');
+	</script>";
+}
 
 function addQuotes($str){
 	return ('\''.$str.'\'');

@@ -5,6 +5,8 @@ require_once 'generic_functions.php';
 
 
 $ref = 'loginpage.html';
+$index = 'index.php';
+
 // change ref below
 // function alert($str, $sfnenwfo)
 // {
@@ -60,9 +62,8 @@ if ($_POST["submit"] == "OK")
 			$_SESSION['user_name'] = $login;
 			$_SESSION['admin'] = $user['admin'];
 			alert("You have been logged in", 'index.php');
-
 		}
-		header('Location: index.php');
+		alert("Something went wrong", 'index.php');
 	}
 	else{
 		alert("Please don't leave any field blank", $ref);

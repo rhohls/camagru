@@ -9,10 +9,10 @@ session_start();
 </head>
 <body>
 	<div class="main_wrapper">
-
 		<!-- Header --><?php require_once('header.php'); ?>
 		<div class="content_wrapper">
 			<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
 
 
 			<!-- Main content -->
@@ -23,8 +23,9 @@ session_start();
 			
 		</div>
 		<!-- <br> -->
-		<!-- Sidebar --><?php require_once('footer.php'); ?>
+		<!-- footer -->
 	</div>
+	<?php require_once('footer.php'); ?>
 </body>
 </html>
 

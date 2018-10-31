@@ -6,11 +6,12 @@ if (isset($_SESSION['uid'])){
 	$id = $_SESSION['uid'];
 	echo $_SESSION['user_name'];
 	echo "<a href=user_images.php?usr_id=$id>My images</a>";
+	echo "<a href=#>Edit Previous image</a>";
 	// list of user made images
 	// delete image
 }
 else
-	echo "no links";
+	echo "Log in to see fancy shit";
 }
 
 function getSidebarImages(){
@@ -26,7 +27,7 @@ function getSidebarImages(){
 <!-- side bar -->
 <div id="side_bar">
 	<!-- hyperlink categories to a cat page? -->
-	<div id="categories_title">Room Type</div>
+	<div id="categories_title">Cool links</div>
 	<ul id="cat_list">
 							
 		<?php getSidebarLinks() ?>

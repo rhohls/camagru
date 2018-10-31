@@ -19,10 +19,10 @@
 		<li><a href="index.php?page=log_in">Login/Register</a></li>
 		<?php
 		if (isset($_SESSION['uid'])){
-			echo "<a class='nav-link' href='adjust.html'>My Account</a>";
+			echo "<a class='nav-link' href='adjust.php'>My Account</a>";
 		}
 		else
-			echo "<a class='nav-link' href='loginpage.html' >Login</a>";
+			echo "<a class='nav-link' href='login.php' >Login</a>";
 		?>
 		<li><img src='./images/basket.png' height="50px" ></li>
 		<li>

@@ -72,5 +72,19 @@ if (isset($_POST["type"])){
 }
 else
 	exit_();
-
 ?>
+
+
+<html>
+    <h1>Reset</h1>
+    <body>
+		<form action="./reset.php" method="POST">
+			Username: <input type="text" name="login" value=""/>
+            <br />
+            Email: <input type="email" name="email" value=""/>
+            <br />
+            <button type="submit" name="type" value="reset">Reset Password</button>
+            <button type="submit" name="type" value="resend">Resend verification email</button>
+        </form>
+    </body>
+</html>

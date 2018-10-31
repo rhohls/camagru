@@ -1,24 +1,10 @@
 <?php
-
 require_once 'connect.php';
 require_once 'generic_functions.php';
-
+session_start();
 
 $ref = 'loginpage.html';
 $index = 'index.php';
-
-// change ref below
-// function alert($str, $sfnenwfo)
-// {
-// 	echo "<script type='text/javascript'>
-// 	alert('$str');
-// 	window.location.href = 'loginpage.html'; 
-// 	</script>";
-// 	die();
-// }
-
-session_start();
-
 
 if ($_POST["submit"] == "OK")
 {
@@ -26,17 +12,6 @@ if ($_POST["submit"] == "OK")
 	{
 		$login = $_POST["login"];
 		$uid = -1;
-		// $query = 'SELECT id, user_name FROM `users`';
-		// foreach ($pdo->query($query) as $user) {
-		// 	if ($user["user_name"] == $login){
-		// 		$uid = $user["id"];
-		// 		break;
-		// 	}
-		// }
-
-		// if ($uid == -1){
-		// 	alert("Details incorrect", $ref);
-		// }
 
 		$query = "SELECT * FROM `users` WHERE user_name=:login";
 		$stmt = $pdo->prepare($query);
@@ -58,8 +33,8 @@ if ($_POST["submit"] == "OK")
 			alert("Your account has been deactivated\nPlease contact an admin", $ref);
 		}
 		else{
-			$_SESSION['uid'] = $uid;
-			$_SESSION['user_name'] = $login;
+			$_SESSION['uid'] = $user['id'];
+			$_SESSION['user_name'] = $user['user_name'];
 			$_SESSION['admin'] = $user['admin'];
 			alert("You have been logged in", 'index.php');
 		}
@@ -69,6 +44,19 @@ if ($_POST["submit"] == "OK")
 		alert("Please don't leave any field blank", $ref);
 	}
 }
-else
-	exit_();
 ?>
+
+
+<html>
+    <h1>Login</h1>
+    <body>
+        <form action="./login.php" method="POST">
+            Username: <input type="text" name="login" value=""/>
+            <br />
+            Password: <input type="password" name="passwd" value=""/>
+            <input type="submit" name="submit" value="OK"/>
+        </form>
+        <a href='reset.html'><button>Forgot Passowrd</button></a>
+        <a href='reset.html'><button>Resend verfication email</button></a>
+    </body>
+</html>

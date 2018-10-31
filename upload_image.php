@@ -1,11 +1,11 @@
 <?php 
 
 // $testimg = "INSERT INTO `images` (user_id, image) VALUES (2, '$img')";
-
+session_start();
 require_once 'connect.php';
 
 if (!isset($_SESSION['uid'])){
-	header('Location: loginpage.html');
+	header('Location: login.php');
 }
 
 $uploads_dir = "./imgs";

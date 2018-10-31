@@ -3,7 +3,7 @@
 
 
 
-// reset code after reset password (security)
+// reset code after reset password (security reasons)
 
 
 

@@ -26,7 +26,7 @@ session_start();
 		<link href="css/thumbnail-gallery.css" rel="stylesheet">
 
 		<!-- Javascript -->
-		<script type='text/javascript' src='scripts.js'></script>
+		<script type='text/javascript' src='javascript/scripts.js'></script>
 	</head>
 
 	<body>

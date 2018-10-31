@@ -4,14 +4,11 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-
 $redirect = 'reg.html';
 $index = 'index.php';
-//function alert($str, $redirect)
 
 if ($_POST["submit"] == "OK")
 {
-
 	if ($_POST["login"] !== "" && $_POST["passwd"] !== "" && $_POST["checkpasswd"] !== "" && $_POST["first_name"] !== "" && $_POST["last_name"] !== "" && $_POST["email"] !== "")
 	{
 		if ($_POST["passwd"] !== $_POST["checkpasswd"])
@@ -56,6 +53,26 @@ if ($_POST["submit"] == "OK")
 	else
 		alert("Please don't leave any field blank", $redirect);
 }
-else
-	exit_();
+
 ?>
+
+<html>
+    <h1>Register</h1>
+    <body>
+        <form action="./register.php" method="POST">
+            Username: <input type="text" name="login" value=""/>
+            <br />
+            Password: <input type="password" name="passwd" value=""/>
+            <br />
+            Retype password: <input type="password" name="checkpasswd" value=""/>
+            <br />
+            Email adress: <input type="email" name="email" value=""/>
+            <br />
+            First Name: <input type="text" name="first_name" value=""/>
+            <br />
+            Last Name: <input type="text" name="last_name" value=""/>
+            <br />
+            <input type="submit" name="submit" value="OK"/>
+        </form>
+    </body>
+</html>

@@ -107,7 +107,7 @@ session_start();
 
 			<canvas id='canvas' height="300" width="400"></canvas>
 		</div>
-		<script src='./photo.js'></script>
+		<script src='javascript/photo.js'></script>
 
 		<!-- /.container -->
 

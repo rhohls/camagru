@@ -3,9 +3,6 @@
 require_once 'connect.php';
 require_once 'generic_functions.php';
 
-if (!isset($_SESSION['uid'])){
-	header('Location: loginpage.html');
-}
 
 $uploads_dir = "./imgs";
 if(isset($_POST["img"]))  

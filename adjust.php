@@ -4,9 +4,7 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-
 $redirect = '#';
-//function alert($str, $redirect)
 
 $adjust_info = array();
 $uid = $_SESSION['uid'];
@@ -20,12 +18,12 @@ else if ($_POST["submit"] == "OK")
 	if ($_POST["passwd"] !== "")
 	{
 		if ($_POST["passwd"] !== $_POST["checkpasswd"])
-			alert("Passwords do not match", $redirect);
+		alert_info("Passwords do not match");
 		
 		// password security level
 		$pwd_error = checkPassword($_POST["passwd"]);
 		if ($pwd_error){
-			alert($pwd_error);
+			alert_info($pwd_error);
 		}
 		$hashedpwd = hashPW($_POST["passwd"]);
 		$adjust_info["password"] = addQuotes($hashedpwd);
@@ -33,7 +31,7 @@ else if ($_POST["submit"] == "OK")
 	
 	if ($_POST["login"] !== "")	{
 		if (userExist($pdo, $_POST["login"])){
-			alert("Username already taken", $redirect);
+			alert_info("Username already taken");
 		}
 		$adjust_info["user_name"] = addQuotes($_POST["login"]);
 	}
@@ -64,10 +62,8 @@ else if ($_POST["submit"] == "OK")
 ?>
 
 
-
-
 <html>
-	<script type='text/javascript' src='scripts.js'></script>
+	<script type='text/javascript' src='javascript/scripts.js'></script>
 	<h1>Adjust account info</h1>
     <body>
         <form action="#" method="POST">

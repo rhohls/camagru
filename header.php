@@ -27,21 +27,19 @@ function getUserName()
 		<li><a href="index.php">Home</a></li>
 		<li><a href="take_picture.php">Take a picture</a></li>
 		<li><a href="upload_image.php">Upload Image</a></li>
-		<li><a href="register.php">Register</a></li>
-		<li><a href="login.php">Login</a></li>
+		<!-- <li><a href="register.php">Register</a></li> -->
+		<!-- <li><a href="login.php">Login</a></li> -->
 		
 		<?php
 		if (isset($_SESSION['uid'])){
-			echo "<a class='nav-link' href='adjust.php'>My Account</a>";
+			// echo "<a class='nav-link' href='adjust.php'>My Account</a>";
+			echo "<li><a href='adjust.php'>My Account</a></li>";
+		}else{
+			// echo "<a class='nav-link' href='login.php' >Login</a>";
+			echo "<li><a href='register.php'>Register</a></li>";
+			echo "<li><a href='login.php'>Login</a></li>";
 		}
-		// else
-		// 	echo "<a class='nav-link' href='login.php' >Login</a>";
 		?>
-		<!-- <li><img src='./images/basket.png' height="50px" ></li>
-		<li>
-			<?php //getBasketInfo() ?>
-		</li> -->
-		
-		
+
 	</ul>
 </div>

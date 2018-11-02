@@ -70,21 +70,61 @@ if (isset($_POST["type"])){
 		alert("Please dont leave any field blank", $redirect);
 	}
 }
-else
-	exit_();
+
 ?>
 
 
+
+
+
+<!DOCTYPE html>
 <html>
-    <h1>Reset</h1>
-    <body>
-		<form action="./reset.php" method="POST">
-			Username: <input type="text" name="login" value=""/>
-            <br />
-            Email: <input type="email" name="email" value=""/>
-            <br />
-            <button type="submit" name="type" value="reset">Reset Password</button>
-            <button type="submit" name="type" value="resend">Resend verification email</button>
-        </form>
-    </body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="css/style.css">
+	<title>Camagru</title>
+</head>
+<body>
+	<div class="main_wrapper">
+		<!-- Header --><?php require_once('header.php'); ?>
+		<div class="content_wrapper">
+
+			<!-- Main content -->
+			<div id="items">
+				<br>
+				<form action="#" method="POST">
+					<table class="form_table">
+						<tr>
+							<td>Username:</td>
+							<td><input type="text" name="login" value=""/></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><input type="email" name="email" value=""/></td>
+						</tr>
+					</table>
+					<br>
+				<table class="form_table">
+					<tr align="right">
+						<td>
+							<button type="submit" name="type" value="reset">Reset Password</button>
+							<button type="submit" name="type" value="resend">Resend verification email</button>
+						</td>
+					</tr>
+				</table>
+				</form>
+			</div>
+			<!-- End main contents -->
+
+
+		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+		</div>
+		<!-- <br> -->
+		<!-- footer -->
+	</div>
+	<?php require_once('footer.php'); ?>
+</body>
 </html>
+

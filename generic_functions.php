@@ -40,8 +40,8 @@ function addQuotes($str){
 function hashPW($pw){
 	$hashedpwd = hash('Whirlpool', $pw);
 	
-	// return($hashedpwd);
-	return($pw);
+	return($hashedpwd);
+	// return($pw);
 }
 
 function checkPassword($pwd) {

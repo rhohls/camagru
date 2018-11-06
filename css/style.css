@@ -9,7 +9,7 @@
 }
 
 body {
-	background-color:black;
+	/* background-color:black; */
 	font-family: 'Courier New', Courier, monospace;
 }
 .padding{
@@ -187,7 +187,10 @@ h2{
 
 
 
-
+#comments td{
+	border-radius: 5px;
+	background: rgba(255, 255, 255, 0.75);
+}
 
 /*  LOGIN PAGE  */
 #login_page{

@@ -55,17 +55,19 @@ if uid == owner id:
 			<div id="items">
 				<table>
 				<?php
+					// var_dump($images);
 					if (!$images){
-						echo("No images for user");
+						echo("No more images found for user");
 					}
 					else foreach($images as $row)
 					{
 						$img_loc = $row['image_location'];
+						$img_id = $row['img_id'];
 						if (file_exists($img_loc)){
 							echo '  
 								<tr>  
 									<td>  
-										<img src="'.$img_loc.'" height="300" width="400"/>  
+										<a href="image.php?img_id='.$img_id.'"><img src="'.$img_loc.'" height="300" width="400"/> </a>
 									</td>  
 								</tr>  
 							';
@@ -76,21 +78,24 @@ if uid == owner id:
 
 				<div id="pagination">
 					<?php 
-						// echo $_SERVER['QUERY_STRING'];
 
-						// $output = array();
-						// foreach(explode('&', $_SERVER['QUERY_STRING']) as $pair) {
-						// 	list($id, $val) = explode('=', $pair);
-						// 	$output[$id] = $val;
-						// }
-
-						// print_r( $output);
-						// $output['pg_num'] += 1;
-						// $nextpage = 
+						$_GET['pg_num'] = $pg_num - 1;
+						$get_array = array();
+						foreach ($_GET as $key => $val){
+							$str = $key . '=' . $val;
+							array_push($get_array, $str);
+						}
+						if ($_GET['pg_num'] > 0)
+							echo "<a href='user_images.php?" . implode('&', $get_array) . "'> previous page</a>";
 
 						$_GET['pg_num'] = $pg_num + 1;
-
-						echo "<a href='user_images.php" . implode('&', $_GET) . "'> next page</a>";
+						$get_array = array();
+						foreach ($_GET as $key => $val){
+							$str = $key . '=' . $val;
+							array_push($get_array, $str);
+						}
+						if (count($images) >= 5)
+							echo "<a href='user_images.php?" . implode('&', $get_array) . "'> next page</a>";
 					?>
 				</div>
 			</div>

@@ -30,6 +30,7 @@ try{
     $pdo->query("use `$dbname`");
 
 
+    // User table
     $user_table = "CREATE TABLE IF NOT EXISTS `users`
     (
         id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -44,21 +45,21 @@ try{
         active INT DEFAULT 1
     );";
     $pdo->query($user_table);
-    
-
+    // adding admin
     if (!userExist($pdo, 'admin')){
         $pw = hashPW('root');
         $query = 'INSERT INTO `users` (user_name, password, email, first_name, last_name, confirmed, admin, active)
         VALUES ("admin", "'.$pw.'", "none", "none", "none", 1, 1, 1)';
         $pdo->query($query);
     }
-    // comments
-    // likes
-    // dislike    
+
+    // Image Table
     $img_table = "CREATE TABLE IF NOT EXISTS `images`
     (
         img_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
         user_id INT NOT NULL,
+        likes INT DEFAULT 0,
+        dislikes INT DEFAULT 0,
         date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         original_img_id INT,
         notify_creator INT DEFAULT 1,
@@ -66,12 +67,8 @@ try{
 
     );";
     $pdo->query($img_table);
-    // $img = get_file_contents('./test.png');
-    // $testimg = "INSERT INTO `images` (user_id, image)
-    // VALUES (2, '$img')";
-    // $pdo->query($testimg);
 
-
+    // Sticker table
     $stick_table = "CREATE TABLE IF NOT EXISTS `stickers`
     (
         img_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -80,9 +77,11 @@ try{
     );";
     $pdo->query($stick_table);
 
+    // Comment table
     $comment_table = "CREATE TABLE IF NOT EXISTS `comments`
     (
         comment_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+        commentator_id INT NOT NULL,
         comment TEXT NOT NULL,
         date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         img_id INT NOT NULL

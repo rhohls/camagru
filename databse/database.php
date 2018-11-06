@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 $servername = "localhost";
 $username = "root";
 $password = "password";
@@ -39,10 +36,11 @@ try{
         email VARCHAR(100) NOT NULL,
         first_name VARCHAR(32) NOT NULL,
         last_name VARCHAR(32) NOT NULL,
-        verification VARCHAR(32),
+        notify INT DEFAULT 1,
         confirmed INT DEFAULT 0,
         admin INT DEFAULT 0,
-        active INT DEFAULT 1
+        active INT DEFAULT 1,
+        verification VARCHAR(32)
     );";
     $pdo->query($user_table);
     // adding admin
@@ -62,6 +60,7 @@ try{
         dislikes INT DEFAULT 0,
         date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
         original_img_id INT,
+        original INT DEFAULT 0,
         notify_creator INT DEFAULT 1,
         image_location VARCHAR(255) NOT NULL
 

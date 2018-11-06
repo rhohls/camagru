@@ -25,17 +25,14 @@ function getUserName()
 <div class="menu_bar">
 	<ul>
 		<li><a href="index.php">Home</a></li>
-		<li><a href="take_picture.php">Take a picture</a></li>
-		<li><a href="upload_image.php">Upload Image</a></li>
-		<!-- <li><a href="register.php">Register</a></li> -->
-		<!-- <li><a href="login.php">Login</a></li> -->
+		<li><a href="take_picture.php">Take/Upload picture</a></li>
+		<li><a href="edit.php">Edit Image</a></li>
+
 		
 		<?php
 		if (isset($_SESSION['uid'])){
-			// echo "<a class='nav-link' href='adjust.php'>My Account</a>";
 			echo "<li><a href='adjust.php'>My Account</a></li>";
 		}else{
-			// echo "<a class='nav-link' href='login.php' >Login</a>";
 			echo "<li><a href='register.php'>Register</a></li>";
 			echo "<li><a href='login.php'>Login</a></li>";
 		}

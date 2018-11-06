@@ -53,6 +53,7 @@ if uid == owner id:
 
 			<!-- Main content -->
 			<div id="items">
+				<h1> All images for user </h1>
 				<table>
 				<?php
 					// var_dump($images);

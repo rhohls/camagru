@@ -21,7 +21,7 @@ if(isset($_POST["img"]))
 	file_put_contents($store_location, $file);
 
 	$uid = $_SESSION['uid'];
-	$query = "INSERT INTO `images` (user_id, image_location) VALUES (:uid, :loc)";
+	$query = "INSERT INTO `images` (user_id, image_location, original) VALUES (:uid, :loc, 1)";
 	$stmt = $pdo->prepare($query);
 	$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
 }

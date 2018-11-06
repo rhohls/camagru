@@ -14,7 +14,7 @@
 		video: true,
 		audio: false
 	}, function (stream){
-		video.src = vendorURL.createObjectURL(stream);
+		video.srcObject = stream;
 		video.play();
 	},function (error){
 		
@@ -48,7 +48,5 @@ function sendData() {
 	XHR.open('POST', 'save_pic.php');
 	XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	XHR.send("img=" + img_data);
-}
-
-;
+};
 

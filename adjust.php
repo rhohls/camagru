@@ -13,7 +13,7 @@ if (!isset($_SESSION['uid'])){
 	// header('Location: login.php');
 	header('Location: loginpage.html');
 }
-else if ($_POST["submit"] == "OK")
+else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 {
 	if ($_POST["passwd"] !== "")
 	{
@@ -41,7 +41,10 @@ else if ($_POST["submit"] == "OK")
 	}	
 
 	if ($_POST["notify"] !== "no_change")	{
-		$adjust_info["notify"] = addQuotes($_POST["notify"]);
+		if ($_POST["notify"] == 'yes')
+			$adjust_info["notify"] = 1;
+		else
+			$adjust_info["notify"] = 0;
 	}
 
 	$adjust_str =  urldecode(http_build_query($adjust_info,'\'',', '));

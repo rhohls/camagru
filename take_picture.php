@@ -1,8 +1,42 @@
 <?php
 session_start();
+require_once 'connect.php';
+require_once 'generic_functions.php';
+
+
 if (!isset($_SESSION['uid'])){
 	header('Location: login.php');
 }
+
+$uid = $_SESSION['uid'];
+$uploads_dir = "./imgs";
+var_dump ($_POST);
+if(isset($_POST["insert"]))  
+{ 
+	$file = $_FILES["image"]["tmp_name"];
+
+	if ($file){
+	var_dump($file);
+	// date("r",hexdec(substr(uniqid(),0,8))); //this converts uniqid into time
+	$type = explode('/', $_FILES["image"]["type"]);
+	$name = uniqid() . "." . $type[1];
+	$store_location = "$uploads_dir/$name";
+	// use finfo_open to verify type
+
+	move_uploaded_file($file, $store_location);
+
+	$uid = $_SESSION['uid'];
+	$query = "INSERT INTO `images` (user_id, image_location, original) VALUES (:uid, :loc, 1)";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["uid" => $uid, "loc" => $store_location]); //use this for security
+
+	header("Location: user_images.php?usr_id=$uid");
+	}
+	else{
+		alert_info("Please choose a file to upload");
+	}
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -30,6 +64,13 @@ if (!isset($_SESSION['uid'])){
 					<div id="photo_buttons">
 						<a href='#' id="capture" class="pic_btn">Take picture </a>
 						<input type="button" onclick="sendData();" value="Save pic">	
+					</div>
+					<div id="upload">
+						<form method="POST"  enctype="multipart/form-data">  
+							<input type="file" name="image" accept="image/*" />  
+							<br />  
+							<input type="submit" name="insert" value="Save and Upload"/>  
+						</form> 
 					</div>
 				</div>
 				<script src='javascript/photo.js'></script>

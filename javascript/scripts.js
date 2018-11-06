@@ -16,3 +16,13 @@ function logOut(){
 // 	}
 // 	return (response);
 // }
+
+function replaceImage(src){
+	var context = document.getElementById('edit_canvas').getContext("2d");
+		
+	var img = new Image();
+	img.onload = function () {
+		context.drawImage(img, 0, 0, 400, 300);
+	}
+	img.src = src;
+}

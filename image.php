@@ -1,15 +1,26 @@
 <?php
 
+function sendNotificationEmail($img_usr){
+	$user_name = $img_usr['user_name'];
+	$image_id = $img_usr['img_id'];
+
+	$to = $img_usr['email'];
+	$subject = "New comment";
+	$headers = "From: noresponse@camagru.co.za";
+	
+	$txt = "Dear $user_name
+
+	You have a new comment on one of your images:
+	http://localhost:8080/cama/image.php?img_id=$image_id
+
+	Kind Regards
+	Camagru";
+	mail($to,$subject,$txt,$headers);
+}
+
 session_start();
 require_once 'connect.php';
 require_once 'generic_functions.php';
-
-// if (isset($_SESSION['uid']) && ){
-
-// }
-// else
-// 	header('Location login.php');
-// }
 
 if(!isset($_GET['img_id'])){
 	alert_info("Error");
@@ -17,11 +28,12 @@ if(!isset($_GET['img_id'])){
 }
 $img_id = $_GET['img_id'];
 
-$query = "SELECT * FROM `images` WHERE img_id=:id";
+$query = "SELECT * FROM `images` JOIN `users` ON images.user_id=users.id WHERE img_id=:id";
 $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $img_id]);
 
 $image = $stmt->fetch();
+
 
 $query = "SELECT * FROM `comments` JOIN `users` ON comments.commentator_id=users.id WHERE comments.img_id=:id;";
 $stmt = $pdo->prepare($query);
@@ -30,8 +42,9 @@ $stmt->execute(["id" => $img_id]);
 $comments = $stmt->fetchAll();
 
 
-var_dump($_SESSION);
-var_dump($_POST);
+
+// var_dump($_SESSION);
+// var_dump($_POST);
 
 if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike']) || isset($_POST['comment_txt']) ))
 {
@@ -54,7 +67,12 @@ if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike
 			$query = "INSERT INTO `comments` (commentator_id, comment, img_id) VALUES (:commentator_id, :comment, :img_id);";
 			$stmt = $pdo->prepare($query);
 			$stmt->execute(["commentator_id" => $_SESSION['uid'], "comment" => $_POST['comment_txt'], "img_id" => $img_id]);
+
+			if ($image['notify'])
+				sendNotificationEmail($image);
+
 			header("Refresh:0");
+			
 		}
 	}
 }

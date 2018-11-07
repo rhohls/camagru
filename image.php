@@ -124,10 +124,11 @@ else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['d
 				{
 					$txt = $comment['comment'];
 					$usr_name = $comment['user_name'];
+					$usr_id = $comment['commentator_id'];
 					echo '  
 						<tr>  
 							<td>
-								<p> '.$usr_name .':</p>
+								<a href=user_images.php?usr_id='.$usr_id.' ><p> '.$usr_name .':</p> <a>
 								<p> '.$txt .'</p>
 							</td>  
 						</tr>  

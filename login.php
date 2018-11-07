@@ -3,7 +3,7 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-$ref = 'loginpage.html';
+$ref = 'login.php';
 $index = 'index.php';
 
 if ($_POST["submit"] == "OK")

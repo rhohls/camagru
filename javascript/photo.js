@@ -30,8 +30,6 @@
 })()
 
 function sendData() {
-	console.log("function call");
-	
 	var XHR = new XMLHttpRequest();
 	var canvas = document.getElementById('canvas');
 	var img_data = canvas.toDataURL("image/png");

@@ -25,7 +25,11 @@ $usr_img_id = $_GET['usr_id'];
 $img_per_page = 5;
 $img_start = ($pg_num - 1) * $img_per_page;
 
-$query = "SELECT * FROM `images` WHERE user_id=:id ORDER BY date_created DESC LIMIT $img_start,$img_per_page; ";
+if (isset($_SESSION['uid']) && ($_SESSION['uid'] == $usr_img_id))
+	$query = "SELECT * FROM `images` WHERE user_id=:id ORDER BY date_created DESC LIMIT $img_start,$img_per_page; ";
+else
+	$query = "SELECT * FROM `images` WHERE user_id=:id AND original=0 ORDER BY date_created DESC LIMIT $img_start,$img_per_page; ";
+
 $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $usr_img_id]);
 

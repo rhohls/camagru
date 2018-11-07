@@ -210,6 +210,24 @@ h2{
 
 }
 
+#edit_test{
+	position: relative; 
+	/* top: 350px; */
+	height: 320px;
+}
+
+#edit_img{
+	position: absolute; 
+	top: 0;
+	left: 0;
+}
+
+#edit_canvas{
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
 
 
 

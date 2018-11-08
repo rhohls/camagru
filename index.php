@@ -1,5 +1,28 @@
 <?php
 
+function pageNation(){
+	$_GET['pg_num'] = $pg_num - 1;
+	$get_array = array();
+	foreach ($_GET as $key => $val){
+		$str = $key . '=' . $val;
+		array_push($get_array, $str);
+	}
+	if ($_GET['pg_num'] > 0)
+		echo "<a href='index.php?" . implode('&', $get_array) . "'> previous page</a>";
+
+	$_GET['pg_num'] = $pg_num + 1;
+	$get_array = array();
+	foreach ($_GET as $key => $val){
+		$str = $key . '=' . $val;
+		array_push($get_array, $str);
+	}
+	if (count($images) >= 5)
+		echo "<a href='index.php?" . implode('&', $get_array) . "'> next page</a>";
+}
+
+
+
+
 session_start();
 require_once 'connect.php';
 require_once 'generic_functions.php';
@@ -36,12 +59,12 @@ $images = $stmt->fetchAll();
 	<div class="main_wrapper">
 		<!-- Header --><?php require_once('header.php'); ?>
 		<div class="content_wrapper">
-			
 
 			<!-- Main content -->
 			<div id="items">
 				<h1> All images</h1>
-				<table>
+
+				<div id="index_images">
 				<?php
 					if (!$images){
 						echo("No more images found");
@@ -51,45 +74,46 @@ $images = $stmt->fetchAll();
 						$img_loc = $row['image_location'];
 						$img_id = $row['img_id'];
 						if (file_exists($img_loc)){
-							echo '  
-								<tr>  
-									<td>  
+							echo '<div>  
 										<a href="image.php?img_id='.$img_id.'"><img src="'.$img_loc.'" height="300" width="400"/> </a>
-									</td>  
-								</tr>  
-							';
+								</div>';
 						}
 					}
 				?>
-				</table>
+				</div>
 
 				<div id="pagination">
 					<?php 
-
-						$_GET['pg_num'] = $pg_num - 1;
-						$get_array = array();
-						foreach ($_GET as $key => $val){
-							$str = $key . '=' . $val;
-							array_push($get_array, $str);
-						}
-						if ($_GET['pg_num'] > 0)
-							echo "<a href='index.php?" . implode('&', $get_array) . "'> previous page</a>";
-
-						$_GET['pg_num'] = $pg_num + 1;
-						$get_array = array();
-						foreach ($_GET as $key => $val){
-							$str = $key . '=' . $val;
-							array_push($get_array, $str);
-						}
-						if (count($images) >= 5)
-							echo "<a href='index.php?" . implode('&', $get_array) . "'> next page</a>";
+							$_GET['pg_num'] = $pg_num - 1;
+							$get_array = array();
+							foreach ($_GET as $key => $val){
+								$str = $key . '=' . $val;
+								array_push($get_array, $str);
+							}
+							if ($_GET['pg_num'] > 0)
+								echo "<a href='index.php?" . implode('&', $get_array) . "'> previous page</a>";
+						
+							$_GET['pg_num'] = $pg_num + 1;
+							$get_array = array();
+							foreach ($_GET as $key => $val){
+								$str = $key . '=' . $val;
+								array_push($get_array, $str);
+							}
+							if (count($images) >= 5)
+								echo "<a href='index.php?" . implode('&', $get_array) . "'> next page</a>";
 					?>
 				</div>
+
+
+
 			</div>
 			<!-- End main contents -->
+			<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+			
+			
+			<div id="clear"></div>
+			
 
-
-		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
 		</div>
 	</div>
 	<?php require_once('footer.php'); ?>

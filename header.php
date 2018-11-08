@@ -9,7 +9,7 @@ function getUserName()
 ?>
 
 <script type='text/javascript' src='javascript/scripts.js'></script>
-<link rel="shortcut icon" href="#" />
+
 
 <!-- This is ther header section -->
 <div id="header_wrapper">
@@ -18,7 +18,10 @@ function getUserName()
 
 	<div id="login_stuff">
 		<a>Logged in as: <?php getUserName() ?></a>
-		<a><button onclick="logOut();">Log Out</button></a>
+		<?php
+		if (isset($_SESSION['user_name']))
+			echo '<a><button onclick="logOut();">Log Out</button></a>';
+		?>
 	</div>
 </div>
 

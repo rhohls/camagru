@@ -81,9 +81,8 @@ $edited_images = $stmt->fetchAll();
 
 				<br>
 				
-				<button onclick='saveEdit("<?php echo trim($img_loc); ?> ")'>Save picture and make pubic</button>
-
-				<button onclick="clearImage()"> Clear pic</button>
+				<button onclick='saveEdit("<?php echo trim($img_loc); ?> ")'>Save picture and make public</button>
+				<button onclick="clearImage()"> Clear stickers</button>
 
 				<div id="stickers">
 					<h1>Stickers</h1>
@@ -94,10 +93,7 @@ $edited_images = $stmt->fetchAll();
 
 						foreach ($sticker_files as $sticker){
 							$stick_loc = "stickers/".$sticker;
-							// echo '<a><img src="'.$img_loc.'" onclick="drawSticker(\'$img_loc\');" height="100" width="134"/></a>';
 							echo "<a><img src='$stick_loc' onclick='drawSticker(event)' height='100' width='134'/></a>";
-
-
 						}
 
 					?>
@@ -107,7 +103,6 @@ $edited_images = $stmt->fetchAll();
 					<h1> Old Images</h1>
 
 					<h2> Unedited Images</h2>
-					<br>
 					<table>
 					<?php
 						if (!$original_images){
@@ -124,7 +119,6 @@ $edited_images = $stmt->fetchAll();
 					?>
 					</table>
 					<h2> Edited Images</h2>
-					<br>
 					<table>
 					<?php
 						if (!$edited_images){

@@ -43,7 +43,6 @@ $images = $stmt->fetchAll();
 				<h1> All images</h1>
 				<table>
 				<?php
-					// var_dump($images);
 					if (!$images){
 						echo("No more images found");
 					}
@@ -92,8 +91,6 @@ $images = $stmt->fetchAll();
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
 		</div>
-		<!-- <br> -->
-		<!-- footer -->
 	</div>
 	<?php require_once('footer.php'); ?>
 </body>

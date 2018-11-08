@@ -41,9 +41,6 @@ $stmt->execute(["id" => $usr_img_id]);
 
 $images = $stmt->fetchAll();
 ?>
-<!--
-if uid == owner id:
-	show delete button; -->
 
 
 <!DOCTYPE html>

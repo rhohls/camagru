@@ -1,11 +1,6 @@
 <?php
 
-
-
-
 // reset code after reset password (security reasons)
-
-
 
 require_once 'connect.php';
 require_once 'generic_functions.php';
@@ -24,12 +19,6 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 	$user = $stmt->fetch();
 	$uid = $user['id'];
 
-	// var_dump($user);
-	// echo "</br";
-
-	// var_dump($_GET);
-	// echo "</br" . 'here';
-
 	if (!$user ){
 		alert("Error with verification, Please contact an admin Code:4721", $redirect);
 	}
@@ -46,11 +35,8 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 		alert("Your account is now verified, you can now login", $redirect);
 	}
 	elseif ($_GET['reset_pw'] == 'true'){
-		// echo "</br" . 'here';
 		$rand = hash('md5', uniqid());
 		$random_pw = substr($rand, 0, 10);
-		// echo "</br" . $rand;
-		// echo "</br" . $random_pw;
 		$hased_pw = hashPW($random_pw);
 
 		$to = $user['email'];

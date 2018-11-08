@@ -66,7 +66,8 @@ if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike
 		}else{
 			$query = "INSERT INTO `comments` (commentator_id, comment, img_id) VALUES (:commentator_id, :comment, :img_id);";
 			$stmt = $pdo->prepare($query);
-			$stmt->execute(["commentator_id" => $_SESSION['uid'], "comment" => $_POST['comment_txt'], "img_id" => $img_id]);
+			$comment = sanitize($_POST['comment_txt']);
+			$stmt->execute(["commentator_id" => $_SESSION['uid'], "comment" => $comment, "img_id" => $img_id]);
 
 			if ($image['notify'])
 				sendNotificationEmail($image);

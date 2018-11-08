@@ -1,15 +1,10 @@
 <?php
-
-$servername = "localhost";
-$username = "root";
-$password = "password";
-$dbname = "camagru";
-
 require_once '../generic_functions.php';
+require_once 'database.php';
 
 // CONNECTING
 try {
-    $pdo = new PDO("mysql:host=$servername", $username, $password);
+    $pdo = new PDO("mysql:host=$DB_DSN", $DB_USER, $DB_PASSWORD);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully\n" . PHP_EOL;
     }
@@ -23,8 +18,8 @@ catch(PDOException $e)
 
 // CREATE DB
 try{
-    $pdo->query("CREATE DATABASE IF NOT EXISTS `$dbname`");
-    $pdo->query("use `$dbname`");
+    $pdo->query("CREATE DATABASE IF NOT EXISTS `$DB_NAME`");
+    $pdo->query("use `$DB_NAME`");
 
 
     // User table

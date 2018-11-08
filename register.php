@@ -14,9 +14,17 @@ if ($_POST["submit"] == "OK")
 		if ($_POST["passwd"] !== $_POST["checkpasswd"])
 			alert("Passwords do not match", $redirect);
 
-		$login = $_POST["login"];
+		$login = sanatize($_POST["login"]);
 		if (userExist($pdo, $login)){
 			alert("username taken", $redirect);
+		}
+
+		// length
+		if (strlen($login) > 19){
+			alert("username to long", $redirect);
+		}
+		if (strlen($_POST["passwd"]) > 254){
+			alert("password to long", $redirect);
 		}
 		// password security level
 		$pwd_error = checkPassword($_POST["passwd"]);

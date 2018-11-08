@@ -57,19 +57,24 @@ if(isset($_POST["insert"]))
 			<!-- Main content -->
 			<div id="items">
 				<div>
-					<h1>Video is here</h1>
+					<h1>Take or Upload an image</h1>
+					<h2> Video:</h2>
+
 						<video autoplay=true id='video_player' height='300' width='400'></video>
-						<a href='#' id="capture" class="pic_btn">Take picture </a>
-					<h2> Cap image is here</h2>
+						<br>
+						<a href='#' id="capture" class="pic_btn"><button>Take picture </button></a>
+					<h2> Picture:</h2>
 						<canvas id='canvas' height="300" width="400"></canvas>
 					<div id="photo_buttons">
-						<input type="button" onclick="sendData();" value="Save pic">	
+						<input type="button" onclick="sendData();" value="Save picture for editing">	
 					</div>
+
+					<h2> Upload an Image:</h2>
 					<div id="upload">
 						<form method="POST"  enctype="multipart/form-data">  
 							<input type="file" name="image" accept="image/*" />  
 							<br />  
-							<input type="submit" name="insert" value="Save and Upload"/>  
+							<input type="submit" name="insert" value="Upload picture for editing"/>  
 						</form> 
 					</div>
 				</div>

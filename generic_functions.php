@@ -64,5 +64,10 @@ function exit_()
 }
 
 
+function sanitize($str){
+	$new = htmlspecialchars($str , ENT_QUOTES);
+	return $new;
+}
+
 
 ?>

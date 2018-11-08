@@ -4,19 +4,18 @@ session_start();
 function getSidebarLinks(){
 if (isset($_SESSION['uid'])){
 	$id = $_SESSION['uid'];
-	echo $_SESSION['user_name'];
-	echo "<a href=user_images.php?usr_id=$id>My images</a>";
-	echo "<a href=#>Edit Previous image</a>";
+	echo "<li><a href=user_images.php?usr_id=$id>My images</a></li>";
+	echo "<li><a href=edit.php>Edit Previous image</a></li>";
 	// list of user made images
 	// delete image
 }
 else
-	echo "Log in to see fancy shit";
+	echo "Log in to see fancy links";
 }
 
 function getSidebarImages(){
 
-	echo "list of stickes to overlay";
+	// echo "list of stickes to overlay";
 }
 
 ?>

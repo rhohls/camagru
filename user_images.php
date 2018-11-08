@@ -26,6 +26,12 @@ $img_per_page = 5;
 $img_start = ($pg_num - 1) * $img_per_page;
 
 if (isset($_SESSION['uid']) && ($_SESSION['uid'] == $usr_img_id))
+	$owner = 1;
+else
+	$owner = 0;
+
+
+if ($owner)
 	$query = "SELECT * FROM `images` WHERE user_id=:id ORDER BY date_created DESC LIMIT $img_start,$img_per_page; ";
 else
 	$query = "SELECT * FROM `images` WHERE user_id=:id AND original=0 ORDER BY date_created DESC LIMIT $img_start,$img_per_page; ";
@@ -69,14 +75,19 @@ if uid == owner id:
 						$img_loc = $row['image_location'];
 						$img_id = $row['img_id'];
 						if (file_exists($img_loc)){
-							echo '  
-								<tr>  
-									<td>  
+							echo '<tr><td>  
 										<a href="image.php?img_id='.$img_id.'"><img src="'.$img_loc.'" height="300" width="400"/> </a>
-									</td>  
-								</tr>  
-							';
+								</td>';
+							}
+						if ($owner){
+							echo '<td>
+									<button onclick="deleteImage('.$img_id.')">Delete Image</button>
+								</td></tr>';
+						}else{
+							echo '</tr>';
 						}
+
+
 					}
 				?>
 				</table>

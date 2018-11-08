@@ -9,6 +9,7 @@ function getUserName()
 ?>
 
 <script type='text/javascript' src='javascript/scripts.js'></script>
+<link rel="shortcut icon" href="#" />
 
 <!-- This is ther header section -->
 <div id="header_wrapper">

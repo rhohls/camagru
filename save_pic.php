@@ -54,7 +54,6 @@ function mergeImages($img_base, $img_top){
 }
 
 
-
 if(isset($_POST["img"]))  
 {
 	$uploads_dir = "./imgs";

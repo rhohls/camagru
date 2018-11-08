@@ -104,6 +104,9 @@ else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['d
 			<!-- if images doesnt exist -->
 			<div id="items">
 				<?php
+					if (!file_exists($image['image_location']))
+						echo 'Image deleted';
+					else{
 					echo '<img src="'.$image['image_location'].'" height="300" width="400"/> ';
 					echo ' <p> number of likes:'. $image['likes'] .' number of dislikes: '. $image['dislikes'] .'</p>';
 				?>
@@ -134,7 +137,7 @@ else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['d
 						</tr>  
 					';
 				}
-				?>
+				}?>
 				</table>
 			</div>
 			<!-- End main contents -->

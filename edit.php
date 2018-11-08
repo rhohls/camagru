@@ -29,7 +29,11 @@ $stmt->execute(["id" => $uid]);
 
 $original_images = $stmt->fetchAll();
 
+$query = "SELECT * FROM `images` WHERE user_id=:id AND original=0 ORDER BY date_created DESC ";
+$stmt = $pdo->prepare($query);
+$stmt->execute(["id" => $uid]);
 
+$edited_images = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -51,17 +55,16 @@ $original_images = $stmt->fetchAll();
 
 			<!-- if images doesnt exist -->
 			<div id="items">
-
 				
 				<div id="">
 					<h1> Image to edit </h1>
 
-					<!-- put imgage and canvas absolute pos 0 0  -->
 					<div id="edit_test">
 					<?php
-						if ($img_id == -1)
-						echo "Please select an image to edit";
-						else{
+						if ($img_id == -1){
+							echo "Please select an image to edit";
+							$img_loc = "noimage";
+						}else{
 							
 							$img_loc = $image['image_location'];
 							if (file_exists($img_loc)){
@@ -70,9 +73,7 @@ $original_images = $stmt->fetchAll();
 								echo 'Error finding image';
 							}
 						}
-						
 						?>
-
 
 					<canvas id='edit_canvas' height="300" width="400"></canvas>
 					</div>
@@ -80,7 +81,7 @@ $original_images = $stmt->fetchAll();
 
 				<br>
 				
-				<button onclick="saveEdit('<?php echo $img_loc; ?> ')"> Save pic</button>
+				<button onclick='saveEdit("<?php echo trim($img_loc); ?> ")'>Save picture and make pubic</button>
 
 				<button onclick="clearImage()"> Clear pic</button>
 
@@ -103,7 +104,9 @@ $original_images = $stmt->fetchAll();
 				</div>
 
 				<div id="old_images">
-					<h1> Unedited Images</h1>
+					<h1> Old Images</h1>
+
+					<h2> Unedited Images</h2>
 					<br>
 					<table>
 					<?php
@@ -111,6 +114,23 @@ $original_images = $stmt->fetchAll();
 							echo("No more images found for user");
 						}
 						else foreach($original_images as $row)
+						{
+							$img_loc = $row['image_location'];
+							$img_id = $row['img_id'];
+							if (file_exists($img_loc)){
+								echo '<a href="edit.php?img_id='.$img_id.'"><img src="'.$img_loc.'" height="50" width="67"/> </a>';
+							}
+						}
+					?>
+					</table>
+					<h2> Edited Images</h2>
+					<br>
+					<table>
+					<?php
+						if (!$edited_images){
+							echo("No edit images found for user");
+						}
+						else foreach($edited_images as $row)
 						{
 							$img_loc = $row['image_location'];
 							$img_id = $row['img_id'];

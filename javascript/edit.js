@@ -11,14 +11,14 @@ canvas_context.clearRect(1, 1, 400, 300);
 
 function drawSticker(event){
 
-	console.log("draw the sicker");
-	console.log(event.target.src);
+	// console.log("draw the sicker");
+	// console.log(event.target.src);
 	var sticker_source = event.target.src;
 	sticker_source = sticker_source.split("/");
 	sticker_source = sticker_source[sticker_source.length - 1];
 
 
-	console.log(sticker_source);
+	// console.log(sticker_source);
 
 	var sticker = new Image();
 	sticker.src = "stickers/" + sticker_source;
@@ -27,25 +27,38 @@ function drawSticker(event){
 }
 
 function saveEdit(baseimg_src) {
-	// baseimg_src = baseimg_src.substring(2);
-	// baseimg_src = "../" + baseimg_src;
 
-	console.log(baseimg_src);
 
-	var XHR = new XMLHttpRequest();
-	var canvas = document.getElementById('edit_canvas');
-	var img_data = canvas.toDataURL("image/png");
+	baseimg_src = baseimg_src.trim();
 
-	XHR.addEventListener('load', function(event) {
-		if (this.response)
-			alert(this.response);
-		else
-			alert("Uploaded");
-	});
-	XHR.addEventListener('error', function(event) {
-	alert('Oops! Something went wrong.');
-	});
-	XHR.open('POST', 'save_pic.php');
-	XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	XHR.send("edit=" + img_data +"&"+ "base=" + baseimg_src);
+	// console.log(baseimg_src);
+
+
+	var res = (baseimg_src !== "noimage");
+	// console.log(res);
+
+
+	if (baseimg_src !== "noimage"){
+		var XHR = new XMLHttpRequest();
+		var canvas = document.getElementById('edit_canvas');
+		var img_data = canvas.toDataURL("image/png");
+
+		XHR.addEventListener('load', function(event) {
+			if (this.response)
+				alert(this.response);
+			else
+				alert("Uploaded");
+		});
+		XHR.addEventListener('error', function(event) {
+		alert('Oops! Something went wrong.');
+		});
+		XHR.open('POST', 'save_pic.php');
+		XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		XHR.send("edit=" + img_data +"&"+ "base=" + baseimg_src);
+	}
+	else {
+		alert("please select an image to edit");
+
+	}
+
 };

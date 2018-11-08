@@ -59,10 +59,10 @@ if(isset($_POST["insert"]))
 				<div>
 					<h1>Video is here</h1>
 						<video autoplay=true id='video_player' height='300' width='400'></video>
+						<a href='#' id="capture" class="pic_btn">Take picture </a>
 					<h2> Cap image is here</h2>
 						<canvas id='canvas' height="300" width="400"></canvas>
 					<div id="photo_buttons">
-						<a href='#' id="capture" class="pic_btn">Take picture </a>
 						<input type="button" onclick="sendData();" value="Save pic">	
 					</div>
 					<div id="upload">

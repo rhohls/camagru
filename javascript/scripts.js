@@ -1,21 +1,11 @@
 function logOut(){
 	var response = confirm("You are about to be logged out");
 	if (response == true) {
-		console.log("logout")
 		window.location.replace("logout.php");
 	} else {
 		window.location.href = "index.php";
 	}
 }
-
-
-// function adjustAccountInfo(){
-// 	var response = confirm("You are about to adjust the following the entered information");
-// 	if (response == true) {
-// 		window.location.href = "adjust.php";
-// 	}
-// 	return (response);
-// }
 
 function replaceImage(src){
 	var context = document.getElementById('edit_canvas').getContext("2d");
@@ -25,4 +15,28 @@ function replaceImage(src){
 		context.drawImage(img, 0, 0, 400, 300);
 	}
 	img.src = src;
+}
+
+function deleteImage(img_id){
+	var response = confirm("Are you sure you want to delete this image?");
+	if (response == true) {
+
+		var XHR = new XMLHttpRequest();
+		XHR.addEventListener('load', function(event) {
+			if (this.response)
+				alert(this.response);
+			else
+				alert("Deleted");
+		});
+		XHR.addEventListener('error', function(event) {
+		alert('Oops! Something went wrong.');
+		});
+		XHR.open('POST', 'deleteimage.php');
+		XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		XHR.send("id=" + img_id);
+
+
+		alert("Image deleted");
+		location.reload();
+	}
 }

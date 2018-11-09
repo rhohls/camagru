@@ -3,36 +3,6 @@
 require_once 'connect.php';
 require_once 'generic_functions.php';
 
-// $img = imagecreatetruecolor($width, $height);
-//        imagealphablending($img, true);
-//        imagesavealpha($img, true);
-
-//        for ($i = 0; $i < 3; $i++)
-//        {
-//            $name = "layer$i.png";
-//            $names [] = $name;
-//            $layers[$i] = str_replace('data:image/png;base64,', '', $layers[$i]);
-//            $layers[$i] = str_replace(' ', '+',  $layers[$i]);
-//            $data1 = base64_decode($layers[$i]);
-//            $file = $upload_dir.$name;
-//            // echo $file;
-//            $success = file_put_contents($file, $data1);
-//            $image = imagecreatefrompng($file);
-//            imagealphablending($image, true);
-//            imagesavealpha($image, true);
-//            imagecopy($img, $image, 0, 0, 0, 0, $width, $height);
-//            imagedestroy($image);
-//        }
-//        $name = md5(uniqid()) . '.png';
-//        imagepng($img, "../uploads/$name");
-//        if ($success)
-//        {
-//            check_table("images", $con);
-
-//            uploadImage($con, $name, $_SESSION['user_id'], $edit);
-//            echo $name;
-//            return (1);
-//        }
 
 function mergeImages($img_base, $img_top){
 

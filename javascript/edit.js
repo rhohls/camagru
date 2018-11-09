@@ -31,7 +31,7 @@ function saveEdit(baseimg_src) {
 
 	baseimg_src = baseimg_src.trim();
 
-	// console.log(baseimg_src);
+	console.log(baseimg_src);
 
 
 	var res = (baseimg_src !== "noimage");

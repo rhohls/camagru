@@ -14,7 +14,7 @@ if ($_POST["submit"] == "OK")
 		if ($_POST["passwd"] !== $_POST["checkpasswd"])
 			alert("Passwords do not match", $redirect);
 
-		$login = sanatize($_POST["login"]);
+		$login = sanitize($_POST["login"]);
 		if (userExist($pdo, $login)){
 			alert("username taken", $redirect);
 		}

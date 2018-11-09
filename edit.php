@@ -13,7 +13,7 @@ $uid = $_SESSION['uid'];
 if (isset($_GET['img_id'])){
 	$img_id = $_GET['img_id'];
 } else{
-$img_id = -1;
+	$img_id = -1;
 }
 
 $query = "SELECT * FROM `images` JOIN `users` ON images.user_id=users.id WHERE img_id=:id";
@@ -21,7 +21,9 @@ $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $img_id]);
 
 $image = $stmt->fetch();
-
+if (!file_exists($image['image_location'])){
+	$img_id = -1;
+}
 
 $query = "SELECT * FROM `images` WHERE user_id=:id AND original=1 ORDER BY date_created DESC ";
 $stmt = $pdo->prepare($query);
@@ -80,8 +82,16 @@ $edited_images = $stmt->fetchAll();
 				</div>
 
 				<br>
-				
-				<button onclick='saveEdit("<?php echo trim($img_loc); ?> ")'>Save picture and make public</button>
+				<?php
+					if ($img_id == -1){
+						echo "<button disabled>Save picture and make public</button>";
+
+					}else{
+						$str = trim($img_loc);
+						echo '<button onclick="saveEdit(\''. $str .'\')">Save picture and make public</button>';
+					}
+
+				?>
 				<button onclick="clearImage()"> Clear stickers</button>
 
 				<div id="stickers">

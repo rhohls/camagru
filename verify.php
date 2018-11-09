@@ -39,12 +39,26 @@ if (isset($_GET['usr_name']) && isset($_GET['code'])){
 		$random_pw = substr($rand, 0, 10);
 		$hased_pw = hashPW($random_pw);
 
+
+		$query = "UPDATE `users` set password=:pwd WHERE id=:uid";
+
+		$stmt = $pdo->prepare($query);
+		$stmt->execute(['uid' => $uid, 'pwd' => $hased_pw]);
+
+
+
 		$to = $user['email'];
 		$subject = "New Password";
 		$headers = "From: accounts@camagru.co.za";
-		$txt = "Your new password is: ". $random_pw;
+		$txt = "Your new password is: ". $random_pw . "
+		
+				You can change it by going to the \"My Account\" page.
+				
+				Kind Regards
+				Camagru";
 
 		mail($to,$subject,$txt,$headers);
+
 		alert("Please check your email for a new password", $redirect);
 	}
 	else{

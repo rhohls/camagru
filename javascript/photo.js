@@ -22,6 +22,8 @@
 
 	document.getElementById('capture').addEventListener('click', function() {
 	context.drawImage(video, 0, 0, 400, 300);
+	var btn = document.getElementById("save_button");
+	btn.disabled = false;
 	});
 
 	// document.getElementById('save_edit').addEventListener('click', function() {
@@ -33,6 +35,8 @@ function sendData() {
 	var XHR = new XMLHttpRequest();
 	var canvas = document.getElementById('canvas');
 	var img_data = canvas.toDataURL("image/png");
+
+	
 
 	XHR.addEventListener('load', function(event) {
 		if (this.response)

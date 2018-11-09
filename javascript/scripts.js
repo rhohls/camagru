@@ -35,8 +35,6 @@ function deleteImage(img_id){
 		XHR.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		XHR.send("id=" + img_id);
 
-
-		alert("Image deleted");
 		location.reload();
 	}
 }

@@ -66,7 +66,7 @@ if(isset($_POST["insert"]))
 					<h2> Picture:</h2>
 						<canvas id='canvas' height="300" width="400"></canvas>
 					<div id="photo_buttons">
-						<input type="button" onclick="sendData();" value="Save picture for editing">	
+						<button id="save_button" type="button" onclick="sendData();" disabled>Save picture for editing</button>	
 					</div>
 
 					<h2> Upload an Image:</h2>

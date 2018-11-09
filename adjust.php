@@ -5,32 +5,39 @@ require_once 'generic_functions.php';
 session_start();
 
 $redirect = '#';
+$error = 0;
 
 $adjust_info = array();
 $uid = $_SESSION['uid'];
 
 if (!isset($_SESSION['uid'])){
-	// header('Location: login.php');
-	header('Location: loginpage.html');
+	header('Location: login.php');
 }
 else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 {
 	if ($_POST["passwd"] !== "")
 	{
-		if ($_POST["passwd"] !== $_POST["checkpasswd"])
-		alert_info("Passwords do not match");
+		$pwd_error = checkPassword($_POST["passwd"]);
+		
+		if ($_POST["passwd"] !== $_POST["checkpasswd"]){
+			alert_info("Passwords do not match");
+			$error = 1;
+		}
 		
 		// password security level
-		$pwd_error = checkPassword($_POST["passwd"]);
-		if ($pwd_error){
+		else if ($pwd_error){
+			$error = 1;
 			alert_info($pwd_error);
 		}
-		$hashedpwd = hashPW($_POST["passwd"]);
-		$adjust_info["password"] = addQuotes($hashedpwd);
+		else {
+			$hashedpwd = hashPW($_POST["passwd"]);
+			$adjust_info["password"] = addQuotes($hashedpwd);
+		}
 	}
 	
 	if ($_POST["login"] !== "")	{
 		if (userExist($pdo, $_POST["login"])){
+			$error = 1;
 			alert_info("Username already taken");
 		}
 		$adjust_info["user_name"] = addQuotes($_POST["login"]);
@@ -56,9 +63,11 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 		$stmt->execute(['uid' => $uid]); //use this for security
 
 		$changed = array_keys($adjust_info);
+		if (isset($adjust_info["user_name"]))
+			$_SESSION['user_name'] = trim($adjust_info['user_name'], '\'');
 		alert_info('The following account info has been changed:\n'. implode(", ", $changed));
 	 }
-	 else{
+	 else if ($error != 1){
 		alert_info('Please enter information to change');
 	 }
 }
@@ -122,6 +131,9 @@ else if (isset($_POST["submit"]) && ($_POST["submit"] == "OK"))
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

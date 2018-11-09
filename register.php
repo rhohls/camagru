@@ -4,7 +4,7 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-$redirect = 'reg.html';
+$redirect = 'register.php';
 $index = 'index.php';
 
 if ($_POST["submit"] == "OK")
@@ -82,7 +82,7 @@ if ($_POST["submit"] == "OK")
 
 			<!-- Main content -->
 			<div id="items">
-				<h2>Register</h2>
+				<h1>Register</h1>
 				<br>
 				<form action="#" method="POST">
 					<table class="form_table">
@@ -121,6 +121,9 @@ if ($_POST["submit"] == "OK")
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

@@ -4,11 +4,7 @@ require_once 'connect.php';
 require_once 'generic_functions.php';
 session_start();
 
-$redirect = 'reset.html';
-
-var_dump($_POST);
-
-
+$redirect = 'reset.php';
 
 if (isset($_POST["type"])){
 	if ($_POST["login"] !== "" && $_POST["email"] !== "")
@@ -120,6 +116,9 @@ if (isset($_POST["type"])){
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

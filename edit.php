@@ -140,6 +140,9 @@ $edited_images = $stmt->fetchAll();
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

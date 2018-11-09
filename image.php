@@ -79,7 +79,6 @@ if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike
 }
 else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike']) || isset($_POST['comment_txt']) )) {
 	alert_info('Please log in');
-	// echo "<br>sdfsdf";
 }
 
 
@@ -129,14 +128,10 @@ else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['d
 					$txt = $comment['comment'];
 					$usr_name = $comment['user_name'];
 					$usr_id = $comment['commentator_id'];
-					echo '  
-						<tr>  
-							<td>
-								<a href=user_images.php?usr_id='.$usr_id.' ><p> '.$usr_name .':</p> <a>
-								<p> '.$txt .'</p>
-							</td>  
-						</tr>  
-					';
+					echo '<tr><td>
+							<a href=user_images.php?usr_id='.$usr_id.' ><p> '.$usr_name .':</p> <a>
+							<p> '.$txt .'</p>
+						  </td></tr>';
 				}
 				}?>
 				</table>
@@ -145,6 +140,9 @@ else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['d
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

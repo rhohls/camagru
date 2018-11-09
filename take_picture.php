@@ -10,13 +10,13 @@ if (!isset($_SESSION['uid'])){
 
 $uid = $_SESSION['uid'];
 $uploads_dir = "./imgs";
-var_dump ($_POST);
+
 if(isset($_POST["insert"]))  
 { 
 	$file = $_FILES["image"]["tmp_name"];
 
 	if ($file){
-	var_dump($file);
+
 	// date("r",hexdec(substr(uniqid(),0,8))); //this converts uniqid into time
 	$type = explode('/', $_FILES["image"]["type"]);
 	$name = uniqid() . "." . $type[1];
@@ -84,6 +84,9 @@ if(isset($_POST["insert"]))
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

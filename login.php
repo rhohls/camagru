@@ -59,11 +59,10 @@ if ($_POST["submit"] == "OK")
 	<div class="main_wrapper">
 		<!-- Header --><?php require_once('header.php'); ?>
 		<div class="content_wrapper">
-			
 
 			<!-- Main content -->
 			<div id="items">
-				<br>
+				<h1>Login</h1>
 				<form action="./login.php" method="POST">
 					<table class="form_table">
 						<tr>
@@ -79,6 +78,8 @@ if ($_POST["submit"] == "OK")
 						</tr>
 					</table>
 				</form>
+				<br>
+				<h2>Forgot details</h2>
 				<table class="form_table">
 					<tr>
 						<td><a href='reset.php'><button>Forgot Password</button></a></td>
@@ -91,6 +92,9 @@ if ($_POST["submit"] == "OK")
 
 
 		<!-- Sidebar --><?php require_once('sidebar.php'); ?>
+
+		<div id="clear"></div>
+
 		</div>
 		<!-- <br> -->
 		<!-- footer -->

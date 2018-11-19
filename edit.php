@@ -21,7 +21,7 @@ $stmt = $pdo->prepare($query);
 $stmt->execute(["id" => $img_id]);
 
 $image = $stmt->fetch();
-if (!file_exists($image['image_location'])){
+if (!file_exists($image['image_location']) || $image['user_id'] != $uid){
 	$img_id = -1;
 }
 

@@ -27,16 +27,7 @@ function drawSticker(event){
 }
 
 function saveEdit(baseimg_src) {
-
-
 	baseimg_src = baseimg_src.trim();
-
-	console.log(baseimg_src);
-
-
-	var res = (baseimg_src !== "noimage");
-	// console.log(res);
-
 
 	if (baseimg_src !== "noimage"){
 		var XHR = new XMLHttpRequest();

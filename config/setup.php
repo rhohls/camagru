@@ -8,12 +8,10 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     echo "Connected successfully\n" . PHP_EOL;
     }
-catch(PDOException $e)
-    {
+catch(PDOException $e){
     echo "Connection failed: " . $e->getMessage() . PHP_EOL;
     die();
-    }
-
+}
 
 
 // CREATE DB
@@ -82,13 +80,26 @@ try{
     );";
     $pdo->query($comment_table);
 
+    // Like/dislike
+    $like_table = "CREATE TABLE IF NOT EXISTS `likes`
+    (
+        user_id INT NOT NULL,
+        img_id INT NOT NULL,
+        likes INT NOT NULL,
+        dislike INT NOT NULL
+    );";
+    $pdo->query($like_table);
     echo "Databse created successfully!" . PHP_EOL;
-    }
+}
+
 
 catch(PDOException $e)
-    {
+{
     echo "Failed to initialize database: " . $e->getMessage() . PHP_EOL;
     die();
-    }
+}
+
+mkdir("../imgs");
+mkdir("../stickers");
 
 ?>

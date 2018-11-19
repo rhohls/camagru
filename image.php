@@ -18,6 +18,19 @@ function sendNotificationEmail($img_usr){
 	mail($to,$subject,$txt,$headers);
 }
 
+function addLike($pdo, $img_id){
+	$query = "UPDATE `images` SET likes=likes+1 WHERE img_id=:id;";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["id" => $img_id]);
+}
+function addDislike($pdo, $img_id){
+	$query = "UPDATE `images` SET dislikes=dislikes+1 WHERE img_id=:id;";
+	$stmt = $pdo->prepare($query);
+	$stmt->execute(["id" => $img_id]);
+}
+
+
+
 session_start();
 require_once 'connect.php';
 require_once 'generic_functions.php';
@@ -43,21 +56,19 @@ $comments = $stmt->fetchAll();
 
 
 
-// var_dump($_SESSION);
-// var_dump($_POST);
-
+if ($image['original'] == 1 && ($image['user_id'] != $_SESSION['uid'])){
+	alert('Unauthorized', 'index.php');
+}
+else{
 if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike']) || isset($_POST['comment_txt']) ))
 {
 	if (isset($_POST['like'])){
-		$query = "UPDATE `images` SET likes=likes+1 WHERE img_id=:id;";
-		$stmt = $pdo->prepare($query);
-		$stmt->execute(["id" => $img_id]);
+
+		addLike($pdo, $img_id);
 		header("Refresh:0");
 	}
 	elseif (isset($_POST['dislike'])){
-		$query = "UPDATE `images` SET dislikes=dislikes+1 WHERE img_id=:id;";
-		$stmt = $pdo->prepare($query);
-		$stmt->execute(["id" => $img_id]);
+		addDislike($pdo, $img_id);
 		header("Refresh:0");
 	}
 	elseif (isset($_POST['comment_txt'])){
@@ -80,7 +91,7 @@ if ((isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike
 else if ((!isset($_SESSION['uid'])) && (isset($_POST['like']) || isset($_POST['dislike']) || isset($_POST['comment_txt']) )) {
 	alert_info('Please log in');
 }
-
+}
 
 ?>
 

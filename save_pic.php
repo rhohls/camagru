@@ -62,11 +62,7 @@ if(isset($_POST["edit"]) )
 	
 	$file = mergeImages($_POST['base'], $stickers);
 
-	// alert_info($_POST["base"]);
-
 	imagepng($file, $store_location);
-
-	// file_put_contents($store_location, $file);
 
 	$uid = $_SESSION['uid'];
 	$query = "INSERT INTO `images` (user_id, image_location, original) VALUES (:uid, :loc, 0)";

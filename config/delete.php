@@ -28,10 +28,10 @@ catch(PDOException $e)
 }
 
 try{
-    $image_files = array_diff(scandir($directory), array('..', '.'));
+    $image_files = array_diff(scandir("../imgs"), array('..', '.'));
 
     foreach ($image_files as $image){
-        $image_loc = "imgs/".$image;
+        $image_loc = "../imgs/".$image;
         unlink($image_loc);
         }
     echo "Deleted all images";
